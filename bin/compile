@@ -16,11 +16,10 @@ export_env_dir() {
 
 export_env_dir $3
 
-SLACK_MESSAGE="*$HEROKU_APP_NAME* was deployed, <$BITBUCKET_PROJECT_COMMIT_PATH/$SOURCE_VERSION|$SOURCE_VERSION>"
+COMMIT_HASH=$(echo "$SOURCE_VERSION" | cut -c1-7)
+SLACK_MESSAGE="$HEROKU_APP_NAME was deployed, <$BITBUCKET_PROJECT_COMMIT_PATH/$SOURCE_VERSION|$COMMIT_HASH>"
 
 echo "-----> Notifying Slack that the deploy is complete"
 echo "       $SLACK_MESSAGE"
-#curl -s -X POST -H 'Content-type: application/json' --data "{\"text\":\"$SLACK_MESSAGE\"}" $SLACK_DEPLOYMENT_WEBHOOK_URL
 curl -s -X POST -H 'Content-type: application/json' --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"$SLACK_MESSAGE\"}}]}" $SLACK_DEPLOYMENT_WEBHOOK_URL
-echo ""
 echo ""
