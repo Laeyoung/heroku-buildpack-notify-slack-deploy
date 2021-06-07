@@ -17,7 +17,7 @@ export_env_dir() {
 export_env_dir $3
 
 COMMIT_HASH=$(echo "$SOURCE_VERSION" | cut -c1-7)
-SLACK_MESSAGE="$HEROKU_APP_NAME was deployed, <$BITBUCKET_PROJECT_COMMIT_PATH/$SOURCE_VERSION|$COMMIT_HASH>"
+SLACK_MESSAGE="$HEROKU_APP_NAME was deployed (<$BITBUCKET_PROJECT_COMMIT_PATH/$SOURCE_VERSION|$COMMIT_HASH>)"
 
 echo "-----> Notifying Slack that the deploy is complete"
 echo "       $SLACK_MESSAGE"
